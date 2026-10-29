@@ -9,7 +9,7 @@ import { categories, work, type Category, type WorkItem } from "@/data/work";
 // The first submission triggers a one-time activation email to this inbox.
 const CONTACT_EMAIL = "hello@signaturestudio.com";
 // Temporary WhatsApp number — replace 919999999999 with your real number (country code, no +).
-const WHATSAPP = "https://wa.me/919999999999?text=" + encodeURIComponent("Hi Signature Studio, I'd like to book a call.");
+const WHATSAPP = "https://wa.me/918630148127?text=" + encodeURIComponent("Hi Signature Studio, I'd like to schedule a meeting.");
 
 export const Route = createFileRoute("/")({
   head: () => ({

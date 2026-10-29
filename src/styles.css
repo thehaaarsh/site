@@ -1,0 +1,120 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Syne", sans-serif;
+  --font-sans: "Manrope", sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-glow: var(--primary-glow);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-overlay: var(--overlay);
+}
+
+:root {
+  --radius: 1rem;
+  --background: oklch(0.13 0.004 50);
+  --foreground: oklch(0.96 0.006 80);
+  --card: oklch(0.18 0.005 50);
+  --card-foreground: oklch(0.96 0.006 80);
+  --popover: oklch(0.18 0.005 50);
+  --popover-foreground: oklch(0.96 0.006 80);
+  --primary: oklch(0.69 0.2 45);
+  --primary-glow: oklch(0.8 0.16 60);
+  --primary-foreground: oklch(0.13 0.004 50);
+  --secondary: oklch(0.22 0.006 50);
+  --secondary-foreground: oklch(0.96 0.006 80);
+  --muted: oklch(0.22 0.006 50);
+  --muted-foreground: oklch(0.68 0.01 70);
+  --accent: oklch(0.25 0.03 45);
+  --accent-foreground: oklch(0.96 0.006 80);
+  --destructive: oklch(0.63 0.22 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.69 0.2 45);
+  --overlay: oklch(0.08 0.004 50);
+
+  --gradient-primary: linear-gradient(120deg, var(--primary), var(--primary-glow));
+  --gradient-fade: linear-gradient(to top, oklch(0.08 0.004 50 / 0.95), transparent 60%);
+  --shadow-glow: 0 20px 60px -15px color-mix(in oklab, var(--primary) 55%, transparent);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.03em; }
+  ::selection { background: var(--primary); color: var(--primary-foreground); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body.has-cursor, body.has-cursor * { cursor: none !important; }
+}
+
+@utility text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility bg-gradient-primary { background: var(--gradient-primary); }
+@utility bg-fade { background: var(--gradient-fade); }
+@utility shadow-glow { box-shadow: var(--shadow-glow); }
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in oklab, var(--foreground) 45%, transparent);
+}
+@utility grain {
+  &::before {
+    content: "";
+    position: fixed; inset: -50%;
+    pointer-events: none; z-index: 60; opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 1.2s steps(6) infinite;
+  }
+}
+@utility animate-marquee { animation: marquee 30s linear infinite; }
+@utility animate-float { animation: float 7s ease-in-out infinite; }
+@utility reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(.2,.7,.2,1), transform 0.9s cubic-bezier(.2,.7,.2,1);
+  &.is-visible { opacity: 1; transform: none; }
+}
+
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes float { 50% { transform: translateY(-18px) rotate(-3deg); } }
+@keyframes grain {
+  0% { transform: translate(0,0); } 33% { transform: translate(-5%,3%); }
+  66% { transform: translate(4%,-4%); } 100% { transform: translate(-2%,5%); }
+}
